@@ -1,9 +1,20 @@
-import './App.css'
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
+import ProductsPage from "./pages/ProductsPage";
+import { useAuth } from "./context/AuthContext";
 
-export default function App() {
-  return (
-    <main>
-      React ⚛️ + Vite ⚡ + Replit 🌀
-    </main>
-  )
-}
+const PrivateRoute = ({ children }) => {
+  const { token } = useAuth();
+  return token ? children : <Navigate to="/" />;
+};
+
+const App = () => (
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<LoginPage />} />
+      <Route path="/products" element={<PrivateRoute><ProductsPage /></PrivateRoute>} />
+    </Routes>
+  </BrowserRouter>
+);
+
+export default App;
