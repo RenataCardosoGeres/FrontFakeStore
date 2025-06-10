@@ -4,8 +4,16 @@ import { useAuth } from "../context/AuthContext";
 import { Card, CardContent, CardMedia, Typography, Grid, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  image: string;
+}
+
 const ProductsPage = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const { token, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -19,9 +27,14 @@ const ProductsPage = () => {
     });
   }, [token]);
 
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
+
   return (
     <div>
-      <Button onClick={logout}>Logout</Button>
+      <Button onClick={handleLogout}>Logout</Button>
       <Grid container spacing={2}>
         {products.map(product => (
           <Grid item key={product.id} xs={12} sm={6} md={4}>

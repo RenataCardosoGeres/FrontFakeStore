@@ -1,20 +1,32 @@
+
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import ProductsPage from "./pages/ProductsPage";
-import { useAuth } from "./context/AuthContext";
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import { ReactNode } from "react";
 
-const PrivateRoute = ({ children }) => {
+interface PrivateRouteProps {
+  children: ReactNode;
+}
+
+const PrivateRoute = ({ children }: PrivateRouteProps) => {
   const { token } = useAuth();
-  return token ? children : <Navigate to="/" />;
+  return token ? <>{children}</> : <Navigate to="/" />;
 };
 
-const App = () => (
+const AppRoutes = () => (
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<LoginPage />} />
       <Route path="/products" element={<PrivateRoute><ProductsPage /></PrivateRoute>} />
     </Routes>
   </BrowserRouter>
+);
+
+const App = () => (
+  <AuthProvider>
+    <AppRoutes />
+  </AuthProvider>
 );
 
 export default App;
