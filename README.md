@@ -85,3 +85,9 @@ npm install
  Inicie o servidor de desenvolvimento
  npm run dev
 
+Irá pedir
+Username: mor_2314
+Password: 83r5^_
+
+Com isso terá acesso aos produtos
+
