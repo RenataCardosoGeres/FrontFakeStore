@@ -77,7 +77,7 @@ Desenvolver uma aplicação SPA protegida por autenticação JWT que permita aos
 ### 1. Clone o repositório
 
 ```bash
-git clone "Link do Repositório" 
+git clone "Link do seu Repositório" 
 
 Instale as dependências
 npm install
